@@ -1,0 +1,13 @@
+Pebble Vault documentation.
+
+The latest audit was performed by Hexa Labs in March.
+
+The owner multisig may pause deposits and upgrade the vault at any time.
+
+Deposit fee: 0% of every deposit.
+
+Withdrawals are processed within 48 hours.
+
+Deposits are covered by an insurance policy with Seawall Mutual.
+
+Pebble Vault is a fictional protocol used only to test HypeCheck. Contact: docs@pebblevault.example

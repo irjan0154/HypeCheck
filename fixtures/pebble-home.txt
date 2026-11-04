@@ -1,0 +1,13 @@
+Pebble Vault: yield without the fuss.
+
+Independently audited by Hexa Labs.
+
+No admin keys, ever.
+
+0% deposit fee.
+
+Withdraw within 72 hours.
+
+Deposits are insured by Seawall Mutual.
+
+Pebble Vault is a fictional protocol used only to test HypeCheck. Contact: hello@pebblevault.example

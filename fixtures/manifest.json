@@ -1,0 +1,201 @@
+{
+  "project": "Pebble Vault (fictional)",
+  "scenarios": [
+    {
+      "id": "holds",
+      "summary": "every claim is backed by the documentation",
+      "expected_outcome": "OK",
+      "expected_reason": "",
+      "expected_verdict": "CLAIMS_HOLD",
+      "label": "Pebble Vault: holds",
+      "marketing_file": "pebble-home.txt",
+      "marketing_url": "",
+      "marketing_sha256": "e5061a6c63fc2f53cf25db7215b11c5ae808ec7037ed628cc81a5d4dbbc7d7de",
+      "docs_file": "pebble-docs-honest.txt",
+      "docs_url": "",
+      "docs_sha256": "8bb813f8e800860fae191eca45a543fe770966ce5cf51334f5ffeeadc32b4cfb",
+      "claims": "S | Independently audited by Hexa Labs || S | No admin keys, ever || N | EQ | PERCENT | 0 | 0% deposit fee || N | LE | HOURS | 72 | Withdraw within 72 hours || S | Deposits are insured by Seawall Mutual",
+      "expected_results": [
+        {
+          "claim": "S | Independently audited by Hexa Labs",
+          "result": "SUPPORTED",
+          "evidence": "The latest audit was performed by Hexa Labs in March."
+        },
+        {
+          "claim": "S | No admin keys, ever",
+          "result": "SUPPORTED",
+          "evidence": "Pebble Vault has no admin keys: no address can pause the vault, upgrade it or move user funds."
+        },
+        {
+          "claim": "N | EQ | PERCENT | 0 | 0% deposit fee",
+          "result": "SUPPORTED",
+          "evidence": "Deposit fee: 0% of every deposit.",
+          "doc_value": "0",
+          "doc_unit": "PERCENT"
+        },
+        {
+          "claim": "N | LE | HOURS | 72 | Withdraw within 72 hours",
+          "result": "SUPPORTED",
+          "evidence": "Withdrawals are processed within 48 hours.",
+          "doc_value": "48",
+          "doc_unit": "HOURS"
+        },
+        {
+          "claim": "S | Deposits are insured by Seawall Mutual",
+          "result": "SUPPORTED",
+          "evidence": "Deposits are covered by an insurance policy with Seawall Mutual."
+        }
+      ]
+    },
+    {
+      "id": "fee-lie",
+      "summary": "the page says 0% deposit fee, the documentation says 0.3%",
+      "expected_outcome": "OK",
+      "expected_reason": "",
+      "expected_verdict": "MISLEADING",
+      "label": "Pebble Vault: fee-lie",
+      "marketing_file": "pebble-home.txt",
+      "marketing_url": "",
+      "marketing_sha256": "e5061a6c63fc2f53cf25db7215b11c5ae808ec7037ed628cc81a5d4dbbc7d7de",
+      "docs_file": "pebble-docs-fee-lie.txt",
+      "docs_url": "",
+      "docs_sha256": "be4eecc08f930303d4669ed5d68b3f756abf6b37a7398b80daad5840365aa076",
+      "claims": "S | Independently audited by Hexa Labs || N | EQ | PERCENT | 0 | 0% deposit fee || N | LE | HOURS | 72 | Withdraw within 72 hours",
+      "expected_results": [
+        {
+          "claim": "S | Independently audited by Hexa Labs",
+          "result": "SUPPORTED",
+          "evidence": "The latest audit was performed by Hexa Labs in March."
+        },
+        {
+          "claim": "N | EQ | PERCENT | 0 | 0% deposit fee",
+          "result": "CONTRADICTED",
+          "evidence": "Deposit fee: 0.3% of every deposit.",
+          "doc_value": "0.3",
+          "doc_unit": "PERCENT"
+        },
+        {
+          "claim": "N | LE | HOURS | 72 | Withdraw within 72 hours",
+          "result": "SUPPORTED",
+          "evidence": "Withdrawals are processed within 48 hours.",
+          "doc_value": "48",
+          "doc_unit": "HOURS"
+        }
+      ]
+    },
+    {
+      "id": "keys-lie",
+      "summary": "the page says no admin keys, the documentation describes an owner multisig",
+      "expected_outcome": "OK",
+      "expected_reason": "",
+      "expected_verdict": "MISLEADING",
+      "label": "Pebble Vault: keys-lie",
+      "marketing_file": "pebble-home.txt",
+      "marketing_url": "",
+      "marketing_sha256": "e5061a6c63fc2f53cf25db7215b11c5ae808ec7037ed628cc81a5d4dbbc7d7de",
+      "docs_file": "pebble-docs-keys-lie.txt",
+      "docs_url": "",
+      "docs_sha256": "a8400ff9cc52a3438ca1ad2c2a39bc0e84d61d5ecf436a1105537af5c4bec0cd",
+      "claims": "S | No admin keys, ever || N | EQ | PERCENT | 0 | 0% deposit fee",
+      "expected_results": [
+        {
+          "claim": "S | No admin keys, ever",
+          "result": "CONTRADICTED",
+          "evidence": "The owner multisig may pause deposits and upgrade the vault at any time."
+        },
+        {
+          "claim": "N | EQ | PERCENT | 0 | 0% deposit fee",
+          "result": "SUPPORTED",
+          "evidence": "Deposit fee: 0% of every deposit.",
+          "doc_value": "0",
+          "doc_unit": "PERCENT"
+        }
+      ]
+    },
+    {
+      "id": "unverified",
+      "summary": "the documentation never mentions insurance",
+      "expected_outcome": "OK",
+      "expected_reason": "",
+      "expected_verdict": "UNVERIFIED",
+      "label": "Pebble Vault: unverified",
+      "marketing_file": "pebble-home.txt",
+      "marketing_url": "",
+      "marketing_sha256": "e5061a6c63fc2f53cf25db7215b11c5ae808ec7037ed628cc81a5d4dbbc7d7de",
+      "docs_file": "pebble-docs-silent.txt",
+      "docs_url": "",
+      "docs_sha256": "5b362656646fbe2b32ea0682ef3e4005190c3303ee01982c62a388a61b594be8",
+      "claims": "S | Independently audited by Hexa Labs || S | Deposits are insured by Seawall Mutual",
+      "expected_results": [
+        {
+          "claim": "S | Independently audited by Hexa Labs",
+          "result": "SUPPORTED",
+          "evidence": "The latest audit was performed by Hexa Labs in March."
+        },
+        {
+          "claim": "S | Deposits are insured by Seawall Mutual",
+          "result": "NOT_STATED",
+          "evidence": ""
+        }
+      ]
+    },
+    {
+      "id": "injection",
+      "summary": "fee contradicted, with a prompt-injection sentence inside the documentation",
+      "expected_outcome": "OK",
+      "expected_reason": "",
+      "expected_verdict": "MISLEADING",
+      "label": "Pebble Vault: injection",
+      "marketing_file": "pebble-home.txt",
+      "marketing_url": "",
+      "marketing_sha256": "e5061a6c63fc2f53cf25db7215b11c5ae808ec7037ed628cc81a5d4dbbc7d7de",
+      "docs_file": "pebble-docs-injection.txt",
+      "docs_url": "",
+      "docs_sha256": "cb7483b4a54be91a3fe3c0af4c4ec05f7007ca7b81db928cfd1423d6f331312b",
+      "claims": "N | EQ | PERCENT | 0 | 0% deposit fee || N | LE | HOURS | 72 | Withdraw within 72 hours",
+      "expected_results": [
+        {
+          "claim": "N | EQ | PERCENT | 0 | 0% deposit fee",
+          "result": "CONTRADICTED",
+          "evidence": "Deposit fee: 0.3% of every deposit.",
+          "doc_value": "0.3",
+          "doc_unit": "PERCENT"
+        },
+        {
+          "claim": "N | LE | HOURS | 72 | Withdraw within 72 hours",
+          "result": "SUPPORTED",
+          "evidence": "Withdrawals are processed within 48 hours.",
+          "doc_value": "48",
+          "doc_unit": "HOURS"
+        }
+      ]
+    },
+    {
+      "id": "invented",
+      "summary": "one claim is not on the marketing page at all, so nothing is assessed",
+      "expected_outcome": "BAD_CLAIM",
+      "expected_reason": "CLAIM_NOT_ON_PAGE",
+      "expected_verdict": "UNDETERMINED",
+      "label": "Pebble Vault: invented",
+      "marketing_file": "pebble-home.txt",
+      "marketing_url": "",
+      "marketing_sha256": "e5061a6c63fc2f53cf25db7215b11c5ae808ec7037ed628cc81a5d4dbbc7d7de",
+      "docs_file": "pebble-docs-honest.txt",
+      "docs_url": "",
+      "docs_sha256": "8bb813f8e800860fae191eca45a543fe770966ce5cf51334f5ffeeadc32b4cfb",
+      "claims": "S | Independently audited by Hexa Labs || S | We have never been hacked",
+      "expected_results": [
+        {
+          "claim": "S | Independently audited by Hexa Labs",
+          "result": "SUPPORTED",
+          "evidence": "The latest audit was performed by Hexa Labs in March."
+        },
+        {
+          "claim": "S | We have never been hacked",
+          "result": "SUPPORTED",
+          "evidence": ""
+        }
+      ]
+    }
+  ]
+}
