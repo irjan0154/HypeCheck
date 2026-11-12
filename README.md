@@ -12,11 +12,11 @@ It is intentionally not a frontend, not a generic AI oracle and not an escrow. I
 
 | Field | Value |
 |---|---|
-| Network | not deployed yet |
-| Contract | not deployed yet |
-| Live result | not run yet |
+| Network | GenLayer Studio (studio.genlayer.com), mode "Normal (Full Consensus)" |
+| Contract | `0x3421fE0FBfe6F53eC5326BB4C989A015448f456f` ([explorer](https://explorer-studio.genlayer.com/address/0x3421fE0FBfe6F53eC5326BB4C989A015448f456f)) |
+| Live result | 6 of 6 labelled scenarios returned the expected verdict (one run each) |
 
-Nothing in this repository claims a live result. The deployment guide and the (still empty) live record are in [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md). This table is filled in only from a real run.
+The step-by-step deployment and live-run guide, and the full live record (including the mistakes made during the run), are in [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md). This table is filled in only from what was observed.
 
 ## The problem
 
@@ -162,7 +162,7 @@ Everything below was run against the source in this repository.
 
 A green suite shows the contract passes its tests, not that the tests would notice a deleted guard. The mutation sweep removes or reverses one rule at a time (the validator's comparison, the hash check, the claim-on-page check, quote grounding, whole-number matching, unit factors, comparison operators, verdict precedence, slot release, error-class handling and others) and reruns the whole suite. It found two real gaps (a leader error of the wrong class being accepted next to a transient validator error, and the comparison fallback for an unknown operator), which now have their own tests. Each equivalent mutant carries a written argument in `scripts/mutate.py`.
 
-What Direct Mode does **not** cover, and what a live run is for: real multi-validator consensus with different models, real model answers (above all whether independent models agree on `CONTRADICTED` versus `NOT_STATED` for subtle claims) and closure serialisation under `run_nondet_unsafe`. No live run has been recorded yet.
+What Direct Mode does **not** cover, and what the live run is for: real multi-validator consensus with different models, real model answers and closure serialisation under `run_nondet_unsafe`. The six live scenarios ran on Studio and each `assess` ended `ASSESSED` in one round; they show the contract works end to end, but they are one run each and do not measure how stable the models' answers are across many runs, nor whether independent models split between `CONTRADICTED`, `NOT_STATED` and `UNCLEAR` on subtler claims.
 
 ## Limitations
 
@@ -195,7 +195,7 @@ docs/                          consensus rule, security notes, deployment and li
 1. [`docs/CONSENSUS.md`](docs/CONSENSUS.md): what must agree and why.
 2. [`contracts/hype_check.py`](contracts/hype_check.py): start at `verdict_from`, then `evaluate_claim` (the grounding gate and the number comparison), then `_round`, `rounds_agree` and `assess`.
 3. [`tests/direct/test_validator.py`](tests/direct/test_validator.py): whether the contract has a validator or only a shape check.
-4. [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md): the deployment guide and, once a run has happened, the live evidence.
+4. [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md): the deployment guide and the live evidence (contract address, scenarios, observed results).
 
 ## Development
 
